@@ -3,9 +3,13 @@
  */
 
 public class OpportunityProductChangeTriggerHandler {
-    public void beforeInsertProductToOpportunityProduct(List<OpportunityLineItem> newOpportunityLineItems) {
-        for(OpportunityLineItem opportunityLineItem : newOpportunityLineItems) {
-            opportunityLineItem.Product__c = opportunityLineItem.Product2Id;
-        }
+    OpportunityProductChangeService opportunityProductChangeService;
+
+    public OpportunityProductChangeTriggerHandler() {
+        opportunityProductChangeService = new OpportunityProductChangeService();
+    }
+
+    public void onBeforeInsertProductToOpportunityProduct(List<OpportunityLineItem> newOpportunityLineItems) {
+        opportunityProductChangeService.beforeInsertProductToOpportunityProduct(newOpportunityLineItems);
     }
 }

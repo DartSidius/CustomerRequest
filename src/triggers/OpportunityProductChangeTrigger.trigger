@@ -7,7 +7,7 @@ trigger OpportunityProductChangeTrigger on OpportunityLineItem (before insert) {
     OpportunityProductChangeTriggerHandler opportunityProductChangeTriggerHandler = new OpportunityProductChangeTriggerHandler();
 
     if(Trigger.isBefore && Trigger.isInsert) {
-        opportunityProductChangeTriggerHandler.beforeInsertProductToOpportunityProduct(Trigger.new);
+        opportunityProductChangeTriggerHandler.onBeforeInsertProductToOpportunityProduct(Trigger.new);
     }
 
 }
