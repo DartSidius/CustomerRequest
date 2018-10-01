@@ -47,7 +47,6 @@ public class OpportunityProductChangeTest {
             opportunityProducts.add(new OpportunityLineItem(
                 OpportunityId = opportunity.Id,
                 Product2Id = product.Id,
-                Product__c = product.Id,
                 Quantity = 10,
                 UnitPrice = 100,
                 PricebookEntryId=customPrice.Id
