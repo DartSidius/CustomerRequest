@@ -6,7 +6,10 @@ public class OpportunityProductChangeService {
 
     public void insertCustomProductField(List<OpportunityLineItem> newOpportunityLineItems) {
         for (OpportunityLineItem opportunityLineItem : newOpportunityLineItems) {
-            opportunityLineItem.Product__c = opportunityLineItem.Product2Id;
+            if(String.isEmpty(opportunityLineItem.Product__c)) {
+                opportunityLineItem.Product__c = opportunityLineItem.Product2Id;
+            }
+
         }
     }
 
@@ -14,6 +17,9 @@ public class OpportunityProductChangeService {
             Map<Id, OpportunityLineItem> oldOpportunityLineItemsMap) {
         List<OpportunityLineItem> opportunityLineItemsToCreate
                 = this.getOpportunityLineItemsToCreate(newOpportunityLineItems, oldOpportunityLineItemsMap);
+        if(opportunityLineItemsToCreate.isEmpty()) {
+            return;
+        }
         insert opportunityLineItemsToCreate;
 
         List<OpportunityLineItem> opportunityLineItemsToDelete = this.getOpportunityLineItemsToDelete(oldOpportunityLineItemsMap);

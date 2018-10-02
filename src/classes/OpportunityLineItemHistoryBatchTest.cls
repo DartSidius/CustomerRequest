@@ -8,6 +8,7 @@ public class OpportunityLineItemHistoryBatchTest {
     @isTest
     static void TestHistoryCustomProductBatchUpdate() {
         //prepare data
+        HandlerExecutionPool.bypassHandler(OpportunityLineItemTriggerHandler.class);
         Pricebook2 customPricebook = TestOpportunityLineItemDataFactory.generateNewPriceBook('CustomPricebook');
         List<Product2> products = TestOpportunityLineItemDataFactory.generateProducts(1);
         Opportunity opportunity = TestOpportunityLineItemDataFactory.generateNewOpportunity(customPricebook);
@@ -15,11 +16,14 @@ public class OpportunityLineItemHistoryBatchTest {
         List<OpportunityLineItem> opportunityLineItems
                 = TestOpportunityLineItemDataFactory.generateOpportunityLineItems(opportunity, pricebookEntry, 100);
 
+        HandlerExecutionPool.enforceHandler(OpportunityLineItemTriggerHandler.class);
         //test magic
         Test.startTest();
 
+
         OpportunityLineItemHistoryBatch opportunityLineItemHistoryBatch = new OpportunityLineItemHistoryBatch();
         Id batchId = Database.executeBatch(opportunityLineItemHistoryBatch);
+
 
         Test.stopTest();
 
@@ -30,5 +34,5 @@ public class OpportunityLineItemHistoryBatchTest {
                 WHERE Product__c = :products.get(0).Id AND Product2Id = :products.get(0).Id
         ]);
     }
-    
+
 }
