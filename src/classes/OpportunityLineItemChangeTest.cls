@@ -7,13 +7,16 @@ public class OpportunityLineItemChangeTest {
     @isTest
     static void TestOpportunityProductInsert() {
 
-        //make an operation
-        Test.startTest();
+        //data generation
 
         Pricebook2 customPricebook = TestOpportunityLineItemDataFactory.generateNewPriceBook('CustomPricebook');
         List<Product2> products = TestOpportunityLineItemDataFactory.generateProducts(1);
         Opportunity opportunity = TestOpportunityLineItemDataFactory.generateNewOpportunity(customPricebook);
         PricebookEntry pricebookEntry = TestOpportunityLineItemDataFactory.generateNewPricebookEntry(products.get(0), customPricebook);
+
+        //make an operation
+        Test.startTest();
+
         List<OpportunityLineItem> opportunityLineItems
                 = TestOpportunityLineItemDataFactory.generateOpportunityLineItems(opportunity, pricebookEntry, 100);
 
